@@ -73,7 +73,12 @@ class ProductCrudController extends CrudController
             },
           ]);
           CRUD::column('in_stock')->label("Is Product in Stock");
-          
+          CRUD::addColumn([
+            'name'    => 'description',
+            'label'   => 'Description',
+            'type'    => 'text',
+            'escaped' => false, // Allows HTML to render
+        ]);
           CRUD::column('in_stock')->wrapper([
             'class' => function($crud, $column, $entry){
                 return match ($entry->in_stock) {
@@ -97,7 +102,6 @@ class ProductCrudController extends CrudController
        // CRUD::setFromDb(); // set fields from db columns.
         CRUD::setValidation(ProductRequest::class);
         CRUD::field("name");
-        CRUD::field("description");
         CRUD::field("sku");
         CRUD::field("price");
         CRUD::field("image")
@@ -109,6 +113,20 @@ class ProductCrudController extends CrudController
         CRUD::field("product_type");
         CRUD::field("category");
         CRUD::field("in_stock");
+        CRUD::field([
+            'name'  => 'description', // the db column name
+            'label' => 'description',
+            'type'  => 'textarea', // set as a simple textarea initially
+        ]);
+        // dd($this->crud->fields());
+        // CRUD::field([
+        //     'name' => 'description',
+        //     'type' => 'ckeditor',
+        //     'custom_build' => [
+        //         resource_path('assets/ckeditor/ckeditor.js'),
+        //         resource_path('assets/ckeditor/ckeditor-init.js'),
+        //     ],
+        // ]);
         // CRUD::addColumn([  
         //         'label'     => "Category",
         //         'type'      => 'select',

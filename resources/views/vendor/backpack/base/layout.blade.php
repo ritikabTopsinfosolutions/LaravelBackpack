@@ -1,0 +1,1 @@
+<script>console.log("layout.blade.php is loaded");</script>
